@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>comine</title>
+    <link rel="icon" href="favicon.svg" type="image/svg+xml">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            overflow: hidden;
+            width: 100%;
+            height: 100%;
+        }
+
+        body {
+            font-family: 'Jost', sans-serif;
+            background: #0a0e1a;
+            color: rgba(255, 255, 255, 0.9);
+            overflow: hidden;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .video-background {
+            position: fixed;
+            top: -10%;
+            left: -10%;
+            width: 120%;
+            height: 120%;
+            z-index: 0;
+            filter: blur(96px);
+            opacity: 0.4;
+        }
+
+        .video-background video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .content {
+            position: relative;
+            z-index: 1;
+            text-align: right;
+            padding: 40px;
+        }
+
+        .timeline {
+            list-style: none;
+            font-size: 15px;
+            font-weight: 300;
+            position: relative;
+        }
+
+        .timeline li {
+            padding: 8px 0;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 24px;
+            opacity: 0.6;
+            transition: opacity 0.3s;
+            position: relative;
+        }
+
+        .timeline li:hover {
+            opacity: 1;
+        }
+
+        .timeline .date {
+            min-width: 100px;
+            text-align: right;
+            color: rgba(255, 255, 255, 0.5);
+            font-weight: 300;
+        }
+
+        .timeline .dot-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            width: 10px;
+        }
+
+        .timeline .dot {
+            width: 8px;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 50%;
+            flex-shrink: 0;
+            z-index: 2;
+        }
+
+        .timeline li:not(:last-child) .dot-container::after {
+            content: '';
+            position: absolute;
+            top: calc(50% + 8px);
+            left: 50%;
+            transform: translateX(-50%);
+            width: 1px;
+            height: calc(100% + 14px);
+            background: rgba(255, 255, 255, 0.2);
+            z-index: 1;
+        }
+
+        .timeline .event {
+            text-align: left;
+            min-width: 220px;
+        }
+
+        .timeline .event a {
+            color: rgba(255, 255, 255, 0.9);
+            text-decoration: underline;
+            text-underline-offset: 3px;
+            transition: opacity 0.2s;
+        }
+
+        .timeline .event a:hover {
+            opacity: 0.7;
+        }
+
+        .timeline .highlight {
+            opacity: 1;
+            font-weight: 400;
+        }
+
+        .timeline .highlight .dot {
+            background: #fff;
+            width: 10px;
+            height: 10px;
+            box-shadow: 0 0 16px rgba(255, 255, 255, 0.8);
+        }
+
+        .fixed-actions {
+            position: fixed;
+            right: 20px;
+            bottom: 20px;
+            display: flex;
+            gap: 12px;
+            z-index: 2;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 12px;
+            background: rgba(255,255,255,0.08);
+            color: rgba(255,255,255,0.95);
+            text-decoration: none;
+            border-radius: 10px;
+            font-weight: 500;
+            font-size: 14px;
+            backdrop-filter: blur(6px);
+            transition: transform 0.12s ease, background 0.12s ease, opacity 0.12s ease;
+            box-shadow: 0 4px 18px rgba(0,0,0,0.45);
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            background: rgba(255,255,255,0.12);
+            opacity: 0.95;
+        }
+
+        .btn svg {
+            width: 16px;
+            height: 16px;
+            display: block;
+            fill: currentColor;
+        }
+
+        @media (max-width: 520px) {
+            .fixed-actions { right: 12px; bottom: 12px; gap: 8px; }
+            .btn { padding: 7px 10px; font-size: 13px; border-radius: 8px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="video-background">
+        <video autoplay muted loop playsinline>
+            <source src="https://nichind.dev/assets/video/miku.mp4" type="video/mp4">
+        </video>
+    </div>
+
+    <div class="content">
+        <ul class="timeline">
+            <li>
+                <span class="date">2024</span>
+                <span class="dot-container"><span class="dot"></span></span>
+                <span class="event">Idea</span>
+            </li>
+            <li>
+                <span class="date">2024 - 2025</span>
+                <span class="dot-container"><span class="dot"></span></span>
+                <span class="event">Developed <a href="https://cobalt.nichind.dev/ui" target="_blank" rel="noopener">pybalt</a></span>
+            </li>
+            <li>
+                <span class="date">2025 Q3-4</span>
+                <span class="dot-container"><span class="dot"></span></span>
+                <span class="event">Made the initial design</span>
+            </li>
+            <li>
+                <span class="date">19 dec.</span>
+                <span class="dot-container"><span class="dot"></span></span>
+                <span class="event">Starting from scratch</span>
+            </li>
+            <li class="highlight">
+                <span class="date"></span>
+                <span class="dot-container"><span class="dot"></span></span>
+                <span class="event">We're here!</span>
+            </li>
+        </ul>
+    </div>
+
+    <div class="fixed-actions" aria-hidden="false">
+        <a class="btn" href="https://github.com/nichind" target="_blank" rel="noopener" aria-label="Nichind on GitHub">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M21.035 5.25705C21.945 6.34905 22.3997 7.62305 22.399 9.07905C22.399 14.356 19.397 15.903 16.576 16.358C16.94 16.995 17.031 17.723 17.031 18.451V22.181C17.031 22.636 16.758 22.909 16.394 22.909C16.2981 22.9101 16.203 22.892 16.1142 22.8558C16.0254 22.8196 15.9447 22.766 15.8769 22.6982C15.809 22.6304 15.7555 22.5497 15.7193 22.4609C15.683 22.3721 15.6649 22.2769 15.666 22.181V18.451C15.7137 18.0697 15.6728 17.6825 15.5466 17.3195C15.4203 16.9565 15.2121 16.6275 14.938 16.358L15.393 15.175C18.214 14.811 21.126 13.901 21.126 8.98805C21.126 7.80505 20.671 6.71305 19.852 5.80305L19.67 5.07605C20.0161 4.2041 20.0479 3.2389 19.76 2.34605C19.306 2.43605 18.396 2.61905 16.85 3.71105L16.303 3.80105C14.1538 3.25501 11.9022 3.25501 9.75302 3.80105L9.20602 3.71105C7.57002 2.71005 6.66002 2.43705 6.20402 2.43705C5.93102 3.34705 5.93102 4.34705 6.29402 5.16705L6.11302 5.89405C5.20302 6.80405 4.74802 7.98705 4.74802 9.07905C4.74802 13.901 7.47802 14.902 10.48 15.266L10.844 16.449C10.298 16.995 10.025 17.723 10.116 18.451V22.272C10.1171 22.3679 10.099 22.4631 10.0628 22.5519C10.0266 22.6407 9.973 22.7214 9.90518 22.7892C9.83737 22.857 9.75669 22.9106 9.66788 22.9468C9.57907 22.983 9.48392 23.0011 9.38802 23C9.29212 23.0011 9.19697 22.983 9.10816 22.9468C9.01936 22.9106 8.93867 22.857 8.87086 22.7892C8.80304 22.7214 8.74946 22.6407 8.71325 22.5519C8.67705 22.4631 8.65895 22.3679 8.66002 22.272V20.18C5.65802 20.817 4.47502 19.27 3.56502 18.088C3.11002 17.542 2.74602 17.087 2.29102 16.996C2.20102 16.905 1.92702 16.541 2.01802 16.177C2.10902 15.813 2.47302 15.54 2.83802 15.722C3.74802 15.904 4.29302 16.632 4.83802 17.269C5.65802 18.361 6.47702 19.361 8.93302 18.816V18.452C8.84302 17.724 9.02402 16.996 9.38802 16.359C6.65802 15.813 3.47402 14.266 3.47402 9.08005C3.47402 7.62405 3.92902 6.35005 4.83902 5.25805C4.56602 3.98505 4.65702 2.62005 5.11202 1.52805L5.56702 1.16405C5.74902 1.07305 7.02302 0.800046 9.66002 2.43705C11.8405 1.89223 14.1215 1.89223 16.302 2.43705C18.851 0.708046 20.216 0.980046 20.398 1.07205L20.853 1.43605C21.308 2.71005 21.399 3.98405 21.035 5.25705Z" fill="white"/>
+            </svg>
+            GitHub
+        </a>
+        <a class="btn" href="https://nichind.dev" target="_blank" rel="noopener" aria-label="nichind.dev website">
+            <svg width="33" height="33" viewBox="0 0 33 33" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                <rect y="4" width="33" height="24" fill="url(#pattern0_593_799)"/>
+                <defs>
+                    <pattern id="pattern0_593_799" patternContentUnits="objectBoundingBox" width="1" height="1">
+                        <use xlink:href="#image0_593_799" transform="matrix(0.00314465 0 0 0.0043239 0 -0.00589623)"/>
+                    </pattern>
+                    <image id="image0_593_799" width="318" height="234" preserveAspectRatio="none" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAT4AAADqCAYAAAA74Cm9AAAACXBIWXMAACE4AAAhOAFFljFgAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAw8SURBVHgB7d3teRNXF4XhPePXdgiSsDpwCaIDuwO7AqADU0GcCnAqMFQQOsAlUAId2EgCvSBrTubYFsHEH5qj+dj7nOf+lVzJ3ywmWmtmZ5PpFydIR5a97z/9/VBQ2efP06N8I3sjMC8XpMW5g8mX2R+Cyp49652IK/4UmJfxxJembCN/2Xvy5J2gssn064fyT5A9gVk88SXKLYqT6XQ6ElR2Of92WD4tfBKYRfCla6d87vv7/Px8V1DJcDi8WMzz/fIvLwQmEXwJK59adv+3ueXDb0dQyXD45FP5ex8lkVEEH0abm1s0lQH6/f5ZsXCvBeYQfPBPfi9pesPcNL1/CUyh1cUPNL3haHpt4YkPP9D0hqPptYXgw89oegPR9NpC8OGWZdMrqMw3va5YvBKoR/DhLqPp9CtNb4DBYPCe19r0I/hwJyfuiKY3TL/fP6bp1Y1WFw8q/9ft8OopBpX4UXj5k0HZ9AplkUI88eFBWb5xStlRnS87Luc5Ta9SBB8es7NZPrnwWlt1vuzIxfnX2mh6lSH48KjrpnebpjdAr9f76Apea9OG4MOK3B5Nb5jBoPeWplcXgg8r803v5+nXI0Flvuktn/x4HVAJgg+VlL9ZvZlMJnuCyhaLuf9D46OgcwQfqstyXmsLQNOrB8GHEDS9gX5qetEhgg9BaHrD+aaXD5h2i+DDGmh6Q3Gqslu8soa1FZK9ftb7/URQGR8w7QZPfFgbTW84PmDaDYIPtciynHd6A/AB024QfKiFLztoesNwqrJ9BB9qc9X0bm2fCirjVGW7CD7Uy7kDPmAahlOV7aHVRSM4VRmOprd5PPGhEZyqDEfT2zyCD03hVGUgmt7mEXxozPJUJU1vdZyqbBbBh6aNNje3eK0tAKcqm0PwoXHlk99Lmt4wnKpsBsGHdrjieDqbvRBUdnl5eSx8wLRWzFnQpotM3L7/LJOgkvPz2e7GZvEhK383FayNJz60iaY3EKcq60XwoVU0veE4VVkfgg9doOkNxKnKehB86ARNbzhOVa6P4EN3yqZ3PB4fCCrjVOV6CD50Kss3+IBpAE5VrofgQ9eWpyp3BZVwqjIcwYfO3Zyq5AOmAThVGYbggxKcqgzFqcrqeHMDqnCqMhwfMF0dT3xQhVOV4fiA6eoIPuiT5bzWFoAPmK6O4INGO5yqDMOpytUQfFDppun9W1AZpyofR/BBMZreUJyqfBitLtSj6Q1H03s3nvigHk1vOJreuxF8sIGmNwhN790IPlhB0xuIU5X/RfDBjKumd4t3ekNwqvI2gg+2OHfAB0zDcKryXwQf7HHF8efp1yNBZZyqvMacBVZxqjIQpyp54oNdnKoMxKlKgg+GcaoyXOqnKgk+WMepykApn6ok+GAepyrDpXqqkuBDHMqmdzqbvRBUluKpSlpdxISmN1BqTS9PfIgJTW+g1E5VEnyICk1vuJROVRJ8iBFNb6BUPmBK8CFKNL3hyqa3LDuyM4kYwYd4lU3veDw+EFQW+wdMaXURu4vL+ffnw+Hwk6CS83O389tv/4/yt1KCD9HLyieX+fz7PuGHJf5XF9FbNr0C3CD4kIoRpyqxRPAhGU7cER8whcdvfEiPK/b7/f6ZIFk88SE9nKpMHsGHFHGqMnEEH5J03fRu0/QmiuBDwtweTW+aCD4kjaY3TbS6gEfTmxSe+ACPpjcpBB9wjaY3IQQfcIOmNx0EH3CL2+MDpvEj+IBfueKYpjdutLrAPTJxzzlVGSee+IB7caoyVgRfm1zxp8AMTlXGi+BrUb/fPyb8zOFUZYQIvpb58HOFeycwg1OV8SH4OrBYzH1jyI/mlpRN73Q2eyGIAsHXgeFweHE5z6O+WxojtyhOptPpSGAewdeR4fDJp8U83yf8TNmh6Y0DwdchH365uMPyLy8EJtD0xoHg65gfyJZlx2uBJTS9xhF8CgwGvbfMXGyh6bWN4FOCjZ9BNL1mEXyKsPGzh6bXJoJPGTZ+5tD0GkTwKcPGz55l0yswg+BTaLnxE2Yulow4VWkHwaeUD79MHOFnCKcq7SD4FGPjZ08u7s1kMtkTqEbwKcfGzyBOVapH8Blws/H7S2AFpyqVI/iMKMPviI2fHZyq1I3gM4SNnzVuj6ZXJ4LPEDZ+9tD06kTwGcPGzx6aXn0IPoPY+BlE06sKwWcUGz9zaHoVIfgMY+NnC02vHgSfcWz8rKHp1YDgiwAbP1toertH8EWCjZ8tvunlA6bdIfgiwcbPIj5g2hWCLyJs/GzxZQdNbzcIvsj8tPGDATfhR9nRMoIvQjcbv1cCEzhV2T6CL1Js/IzhVGWrCL6IsfGzhVOV7SH4Iuc3fpJl7wUWcKqyJQRfAi6/f/O/97HxM2B5qpKmt1kEXwLY+JkzoultFsGXCDZ+ttD0NovgSwgbP2NoehtD8CWGjZ8tNL3NIPgSxMbPFJreBhB8iWLjZ8ey6RXUhuBLGBs/U0Z8wLQ+BF/i2PjZ4T9gStNbD4IvcWz8jCmb3vF4fCBYC8EHNn7GZPnGKWXHegg+XPHhVz5NHAos4FTlmgg+/FCWHWds/GzgVOV6CD7cwsbPEk5VhiL48B9s/OzgVGWYbDL94gSt6PeeZmLIZPr1g3+qEOjnin3/U4VgJTzx4V6X82++7GDjZ0GW81pbBQQf7sXGzxSa3goIPjyIjZ8dNL2rI/jwKDZ+ltD0roLgw0rY+NlB0/s4gg8rY+NnRy7uzWQy2RPcieBDJWz87MiynHd670HwobKr7/hJdiZQzZcdNL13I/gQhI2fDVdN79b2qeAWgg9B2PgZ4twBHzC9jeBDMDZ+hnCq8haCD2th42cHpyr/RfBhbX7jVyzca4F2nKq8QfChFs+e9U7Y+Om3PFWZetNL8KE2bPzMGG1ubiX9WhvBh1qx8bOhfPJ7mXLTS/Chdn7jx8zFgISbXoIPtfMbPz9zIfz0S7XpJfjQCDZ+ZiTZ9BJ8aAwbPxtSbHoJPjSKjZ8ZSTW9BB8ax8bPhpSaXoIPrWDjZ0TZ9I7H4wOJHHd1W2Ttrm4TuNVrwsXl/Pvzsp3/JJHiiQ+tYuNnQvSnKgk+tIqNnw2xn6ok+NA6P3PJxfmZCxs/1eI9VUnwoRO9Xu8jGz/9Yj1VSfChM2z8bIjxVCXBh06x8TMiy6N6rY3gQ+f8xs8V7p1As6iaXoIPKgwGvZd8x0+3mJpegg9qsPGzII6ml+CDGmz8bIih6SX4oAobPxusN70EH9Rh42eE4aaX4INKbPxMMNv0EnxQi42ffldN79b2qRhD8EE1Nn4GOHdg7QOmBB/UY+NngCuOLTW9BB9MYOOnX9n0/mHlVCXBBxPY+Jlg5lQlwQcz2PjpZ+VUJcEHU/zGzxWLVwLN1J+qJPhgzmAweM/GTzftpyoJPpjExs+AsumdzmYvRCGCD2ax8dPPLYoTjU0vwQfTrjd+8lGglcqml+CDeZfz78xcFNPY9BJ8MI+Nnwmqml6CD1Fg46efpqaX4EM02PgZUDa94/H4QDpG8CEqbPz0y/KN067LDoIP0WHjp97yA6a70hGCD1Fi46fbsumVjhB8iBYbP/VGXZ2qJPgQNTZ+unV1qpLgQ9TY+OnXxalKgg/RY+NnQMunKgk+JOF648fMRbFWT1USfEhGWXa8ZeOn13XTu91K00vwISls/LRze200vQQfksPGT7c2ml6CD0laLOb+Pyw2fko13fQSfEiSn7mw8VOuwaaX4EOy2Pip11jTS/AhaWz8dLtqere2T6VmBB+Sx8ZPOecO6v6AKcEHCBs/9VxxXGfTS/ABN9j46eab3rpOVRJ8wE/Y+GlXz6lKgg/4BRs/veo6VUnwAb9g46fe2qcqCT7gDmz8dFv3VCXBB9yDjZ9yZdM7nc1eSACCD3gAGz/d3KI4CWl6CT7gEX7jx8xFrZ2QppfgA1bgZy6En04hTS/BB6yIjZ9qlZpegg+ogI2fXlWaXoIPqOB645cfMnNRasWml+ADKvIzFzZ+evmm97Gyg+ADArDxU235AdPd+/4Fgg8IxMZPr2XTe98/J/iANbDxU21036lKgg9YExs/ve47VZlNpl+coBX93tNMEK3xePo2y7Ogd0fRMFfsl39AnS3/lic+oCZs/BT75VQlwQfUhI2fardOVRJ8QI3Y+Ol13fRuXzW9/MbXIn7jS4f/VJKT7INcfT0EmmSSnfwDi5RQoBw+fxAAAAAASUVORK5CYII="/>
+                    </defs>
+            </svg>
+            nichind.dev
+        </a>
+    </div>
+</body>
+</html>
